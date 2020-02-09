@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 
-CONFIG = n900_defconfig
-DTB    = omap3-n900.dtb
-DEV    = n900
-ARCH   = arm
+CONFIG      = omap2plus_defconfig
+CONFIG_PATH = arch/arm/configs
+DTB         = omap3-n900.dtb
+DEV         = n900
+ARCH        = arm
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -15,7 +16,7 @@ ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
 endif
 
 build-arch:
-	$(MAKE) ARCH=$(ARCH) $(CONFIG)
+	ARCH=$(ARCH) scripts/kconfig/merge_config.sh $(CONFIG_PATH)/$(CONFIG) $(CONFIG_PATH)/common_fragments/* $(CONFIG_PATH)/$(DEV)_fragments/*
 	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) zImage modules $(DTB)
 
 binary-arch:
