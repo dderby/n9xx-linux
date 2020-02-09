@@ -1,0 +1,1 @@
+CONFIG_CMDLINE="root=/dev/mmcblk0p2 rootwait console=tty1"

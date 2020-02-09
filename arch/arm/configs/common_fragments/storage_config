@@ -1,0 +1,2 @@
+CONFIG_SCSI=y
+# CONFIG_ATA is not set
